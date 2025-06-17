@@ -8,9 +8,9 @@
 
 
 ## Overview
-<video class="text-align:center;" autoplay loop muted playsinline preload="metadata">
-    <source src="assets/generation_1.webm" type="video/webm">
-</video>
+<div style="text-align:center;">
+    <img src="assets/generation_1.gif" alt="Local GIF" width="600px" />
+</div>
 
 
 ## 📢 News
