@@ -21,7 +21,9 @@ python -m tools.create_data nuscenes \
 --extra-tag nuscenes --only_info
 ```
 
-You will get these files:
+Or directly download our pre-generated `.pkl` [files](https://huggingface.co/datasets/yuyang-cloud/X-Scene/tree/main/nuscenes_mmdet3d-keyframes) and place them into `data/nuscenes/nuscenes_mmdet3d-keyframes/`.
+
+Either way, you will get the following structure:
 ```bash
 data/nuscenes/nuscenes_mmdet3d-keyframes
 ├── nuscenes_infos_train.pkl
@@ -51,7 +53,9 @@ data/nuscenes/nuscenes_mmdet3d-keyframes
     --extra-tag nuscenes_interp_12Hz --max-sweeps -1 --version interp_12Hz_trainval
     ```
 
-You will get these files:
+Or directly download our pre-generated `.pkl` [files](https://huggingface.co/datasets/yuyang-cloud/X-Scene/tree/main/nuscenes_mmdet3d-12Hz) and place them into `data/nuscenes/nuscenes_mmdet3d-12Hz/`.
+
+Either way, you will get the following structure:
 ```bash
 data/nuscenes/nuscenes_mmdet3d-12Hz
 ├── nuscenes_interp_12Hz_infos_train.pkl
@@ -74,7 +78,7 @@ data/nuscenes/nuscenes_map_aux_12Hz_interp
 └── val_200x200_12Hz_interp.h5 (53G)
 ```
 
-**5. Download our pre-generated scene descriptions for each keyframe from [here](https://huggingface.co/yuyang-cloud/X-Scene/blob/main/description.zip). Unzip the file and place the contents into the `data/nuscenes/` directory.**
+**5. Download our pre-generated scene descriptions for each keyframe from [here](https://huggingface.co/datasets/yuyang-cloud/X-Scene/blob/main/description.zip). Unzip the file and place the contents into the `data/nuscenes/` directory.**
 
 Your directory structure should look like this:
 ```bash
@@ -89,7 +93,7 @@ data/nuscenes/description
 └── ...
 ```
 
-**6. Download the `nuscenes_interp_12Hz_infos_track2_eval.pkl` and `nuscenes_interp_12Hz_infos_track2_eval_long.pkl` from [w-coda2024/track2](https://coda-dataset.github.io/w-coda2024/track2/) for 16-frame videos FVD benchmark evaluation.**
+**6. Download the `nuscenes_interp_12Hz_infos_track2_eval.pkl` and `nuscenes_interp_12Hz_infos_track2_eval_long.pkl` from [w-coda2024/track2](https://coda-dataset.github.io/w-coda2024/track2/) or [here](https://huggingface.co/datasets/yuyang-cloud/X-Scene/tree/main/workshop) for 16-frame videos FVD benchmark evaluation.**
 
 You will get these files:
 ```bash
