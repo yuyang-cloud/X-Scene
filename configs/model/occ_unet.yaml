@@ -1,0 +1,70 @@
+name: occ_unet
+pretrained_model_name_or_path: pretrained/stable-diffusion-v2-1/
+pretrained_t5_path: pretrained/t5-large/
+use_map_cond: true  # use map condition
+use_cross_attn_cond: true # use text and bbox condition
+map_cond_type: 'bev_seg' # map condition use bev_seg(dense_mask) or hd_map(sparse_vector)
+bbox_mode: 'all-xyz'
+bbox_view_shared: true  # true for triplane (do not need proj from lidar2cam)
+condition_embed_dim: 1024  # can reduce if memory-sensitive
+train_with_same_noise: false
+
+runner_module: xscene.runner.occ_runner.OccRunner
+
+pipe_module: xscene.pipeline.pipeline_occ_unet.StableDiffusionOccUNetPipeline
+
+vae_module: xscene.occ_vae.networks.networks.AutoEncoderGroupSkip
+vae_ckpt: work_dirs/vae/best_model  # Path to your trained VAE checkpoint
+vae:
+  num_class: 18
+  geo_feat_channels: 16
+  feat_channel_up: 64
+  mlp_hidden_channels: 256
+  mlp_hidden_layers: 4
+  z_down: false
+  padding_mode: 'replicate'
+  voxel_fea: false
+  triplane: true
+  pos: true
+  dataset: 'Occ3D-nuScenes'
+
+unet_module: xscene.networks.unet_2d_condition_occ.UNet2DConditionModelOcc
+use_fp32_for_unet_trainable: true
+unet_dir: unet_occ
+unet:
+  # UNet2DConditionModel parms
+  sample_size: 116
+  # unet parms
+  in_channels: 16
+  out_channels: 16
+  down_block_types: ["CrossAttnDownBlock2D", "CrossAttnDownBlock2D", "CrossAttnDownBlock2D", "DownBlock2D"]
+  up_block_types: ["UpBlock2D", "CrossAttnUpBlock2D", "CrossAttnUpBlock2D", "CrossAttnUpBlock2D"]
+  block_out_channels: [64, 128, 256, 512]
+  layers_per_block: 2  # can be 1 if memory-sensitive
+  cross_attention_dim: ${model.condition_embed_dim}
+  # added unet parms for triplane
+  tri_size: ${dataset.tri_size}
+  is_rollout: true
+  conv_down: true
+  conv_up: true
+  tri_z_down: false
+  # map condition params
+  use_map_cond: ${model.use_map_cond}
+  map_cond_type: ${model.map_cond_type}
+  map_size_bev_seg: [12, 216, 216]
+  map_size_hd_map:  [13, 216, 216]
+  conditioning_embedding_out_channels: [16, 32, 96, 256]
+  use_uncond_map: zero  # negative1, random or learnable
+  drop_cond_ratio: 0.25
+  # box condition params
+  use_cross_attn_cond: ${model.use_cross_attn_cond}
+  bbox_embedder_cls: xscene.networks.bbox_embedder.ContinuousBBoxWithTextEmbedding
+  bbox_embedder_param:
+    n_classes: 10
+    class_token_dim: ${model.condition_embed_dim}
+    trainable_class_token: false
+    use_text_encoder_init: true
+    embedder_num_freq: 4
+    proj_dims: [1024, 512, 512, 1024]
+    mode: ${...bbox_mode}
+    minmax_normalize: false

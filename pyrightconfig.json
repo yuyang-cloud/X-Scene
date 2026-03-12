@@ -1,0 +1,5 @@
+{
+    "typeCheckingMode": "off",
+
+    "exclude": ["data", "work_dirs"]
+}

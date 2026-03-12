@@ -1,0 +1,62 @@
+# @package _global_
+defaults:
+  - /dataset/Nuscenes_map_cache_box_t
+  # - /runner/default_t
+  - model: ../../model/video_unet
+  - _self_  # make sure override
+
+# NOTE: we do not handle map explicitly, since on cache miss, our code can get
+# the map from whole nuscenes map correctly. Therefore, we assume map is always
+# available to every frame.
+
+# based on 0.1.3, use non-key frames
+task_id: 224x400_t
+log_root_prefix: ./work_dirs/x-scene-video_224x400
+runner:
+    # validation_index: [204, 899, 1828, 3090] # total 4969
+    validation_index: [138, 632, 1301, 2342] # should match above
+    # validation_before_run: false
+    enable_unet_checkpointing: false
+    pipeline_param:
+      keyframe_rate: 6
+    num_train_epochs: 200
+    save_model_per_epoch: 10
+dataset:
+  dataset_root: ./data/nuscenes
+  dataset_type: NuScenesTDataset
+  dataset_cache_file_tag: 200x200_12Hz_interp
+  start_on_keyframe: true
+  data:
+    train:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_infos_train.pkl
+      video_length: ${model.video_length}
+      start_on_keyframe: ${dataset.start_on_keyframe}
+      ref_length: ${model.ref_length}
+      candidate_length: 5 
+    val:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_infos_val.pkl
+      video_length: ${model.video_length}
+      start_on_keyframe: ${dataset.start_on_keyframe}
+      ref_length: ${model.ref_length}
+      candidate_length: 5
+    test:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_infos_val.pkl
+      video_length: ${model.video_length}
+      start_on_keyframe: ${dataset.start_on_keyframe}
+      ref_length: ${model.ref_length}
+      candidate_length: 5
+      
+model:
+  fix_controlnet: true
+  sc_attn_index:
+    - [0, 6, 0]  # keyframe
+    - [0, 6, 0]
+    - [0, 6, 1]
+    - [0, 6, 2]
+    - [0, 6, 3]
+    - [0, 6, 4]
+    - [0, 6, 5]  # keyframe
+  unet:
+    transformer_type: _ff_last  # tune-a-video
+    zero_module_type2: none
+    spatial_trainable: true

@@ -1,0 +1,40 @@
+# @package _global_
+defaults:
+  - /dataset/Nuscenes_map_cache_box
+  # - /runner/8gpus
+  - model: ../../model/img_unet
+  - _self_  # make sure override
+
+task_id: 448x800
+log_root_prefix: ./work_dirs/x-scene-img_448x800
+runner:
+  num_train_epochs: 100
+  train_batch_size: 5
+  num_workers: 8
+  validation_show_box: true
+  validation_show_line: true
+  enable_xformers_memory_efficient_attention: true  # always need this.
+  bbox_add_ratio: 0.1
+
+dataset:
+  image_size: [448, 800]
+  augment2d:
+    resize: [[0.5, 0.5]]
+
+model:
+  controlnet:
+    map_embedder_cls: xscene.networks.map_embedder.BEVControlNetConditioningEmbedding
+    map_embedder_param: 
+      conditioning_size: ${..map_size}
+      block_out_channels: ${..conditioning_embedding_out_channels}
+      output_size: [56, 100]
+
+    with_occ_render_img: true
+    occrender_output_size: [56, 100]
+
+  scene_embedder_cls: xscene.networks.scene_position_embedder.ScenePositionEmbedding
+  scene_embedder_dir: scene_embedder
+  scene_embedder:
+    embed_dims: 320
+    LID: false
+    output_size: [56, 100]

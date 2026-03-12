@@ -1,0 +1,39 @@
+defaults:
+  - config_video
+  - _self_
+
+log_root_prefix: ./work_dirs/test_video
+
+runner:
+  validation_batch_size: 1
+  validation_times: 1
+  pipeline_param:
+    init_noise: rand_all
+
+dataset:
+  dataset_type: NuScenesTDataset
+  dataset_process_root: ./data/nuscenes/nuscenes_mmdet3d-12Hz/
+  start_on_keyframe: false
+  temporal: true
+  data:
+    train:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_infos_train.pkl
+      start_on_keyframe: ${dataset.start_on_keyframe}
+      temporal: ${dataset.temporal}
+    val:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_infos_val.pkl
+      video_length: ${model.video_length}
+      start_on_keyframe: ${dataset.start_on_keyframe}
+      temporal: ${dataset.temporal}
+    test:
+      ann_file: ${...dataset_process_root}nuscenes_interp_12Hz_infos_val.pkl
+      video_length: ${model.video_length}
+      start_on_keyframe: ${dataset.start_on_keyframe}
+      temporal: ${dataset.temporal}
+
+resume_on_exists: false
+show_box: true
+show_lane: true
+fps: 12
+
+fix_seed_for_every_generation: False

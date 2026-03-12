@@ -1,0 +1,28 @@
+defaults:
+  - _self_
+  - model: img_unet
+  - dataset: Nuscenes_map_cache_box
+  - accelerator: default
+  - runner: default_img
+
+task_id: "0.0.0"
+log_root_prefix: ./work_dirs/x-scene-img
+projname: ${model.name}
+hydra:
+  run:
+    dir: ${log_root_prefix}/${projname}_${now:%Y-%m-%d}_${now:%H-%M}_${task_id}
+  output_subdir: hydra
+
+try_run: false
+debug: false
+log_root: ./work_dirs
+init_method: env://
+seed: 42
+fix_seed_within_batch: false
+
+resume_from_checkpoint: null
+resume_only_model: false
+resume_reset_scheduler: false
+validation_only: false
+# num_gpus: 1
+# num_workers: 4

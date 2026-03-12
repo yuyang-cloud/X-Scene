@@ -1,0 +1,74 @@
+name: img_unet
+pretrained_model_name_or_path: pretrained/stable-diffusion-v2-1/
+pretrained_t5_path: pretrained/t5-large/
+bbox_mode: 'all-xyz'
+bbox_view_shared: false
+crossview_attn_type: t5_crossview # basic
+train_with_same_noise: false
+train_with_same_t: true
+
+runner_module: xscene.runner.multiview_runner.MultiviewRunner
+
+pipe_module: xscene.pipeline.pipeline_bev_controlnet.StableDiffusionBEVControlNetPipeline
+
+unet_module: xscene.networks.unet_2d_condition_multiview.UNet2DConditionModelMultiview
+use_fp32_for_unet_trainable: true
+unet_dir: unet
+unet:
+  trainable_state: only_new  # only_new or all
+  neighboring_view_pair: ${dataset.neighboring_view_pair}
+  neighboring_attn_type: add
+  zero_module_type: zero_linear
+  crossview_attn_type: ${..crossview_attn_type}
+  img_size: ${dataset.image_size}
+  scene_channels: 320
+  attn1_q_trainable: true
+
+scene_embedder_cls: xscene.networks.scene_position_embedder.ScenePositionEmbedding
+scene_embedder_dir: scene_embedder
+scene_embedder:
+  embed_dims: 320
+  LID: false
+    
+model_module: xscene.networks.unet_addon_rawbox.BEVControlNetModel
+controlnet_dir: controlnet
+controlnet:
+  # 7 param to embed: 3 for intrinsics + 4 for extrinsics
+  # in_dim 3, num_freqs 4 -> 27 dim embedding
+  camera_in_dim: 189
+  camera_out_dim: 1024
+  map_size: [4, 200, 200]
+  conditioning_embedding_out_channels: [16, 32, 96, 256]
+
+  # for uncond camera param, learnable
+  uncond_cam_in_dim: [3, 7]
+  use_uncond_map: null  # negative1, random or learnable
+  drop_cond_ratio: 0.25
+  drop_cam_num: 6
+  drop_cam_with_box: false
+
+  cam_embedder_param:
+    input_dims: 3
+    num_freqs: 4  # nerf use 4 for view embedding
+    include_input: True
+    log_sampling: True
+
+  bbox_embedder_cls: xscene.networks.bbox_embedder.ContinuousBBoxWithTextEmbedding
+  bbox_embedder_param:
+    n_classes: 10
+    class_token_dim: 1024
+    trainable_class_token: false
+    use_text_encoder_init: true
+    embedder_num_freq: 4
+    proj_dims: [1024, 512, 512, 1024]
+    mode: ${...bbox_mode}
+    minmax_normalize: false
+
+  with_layout_canvas: true
+  canvas_conditioning_channels: 14
+  canvas_size: [14, 224, 400] # hd_line=4 + object=10
+
+  with_occ_render_img: false
+  occrender_conditioning_channels: 20
+  render_img_size: [20, 224, 400] # occ=17 + hd_line=3
+  occrender_embedding_out_channels: [16, 32, 64, 96, 256]

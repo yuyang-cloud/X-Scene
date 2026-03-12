@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - _self_  # make sure override
+
+fid:
+  raw_output: true
+  # path relative to `${ROOT}`
+  img_gen_dir: work_dirs/results_occ
+
+runner:
+  validation_index: all
+  validation_times: 4  # pred 4 times for filter floaters (TTA)
+
+log_root_prefix: ../work_dirs/results_occ
+show_box: false

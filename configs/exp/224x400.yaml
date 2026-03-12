@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - /dataset/Nuscenes_map_cache_box
+  # - /runner/8gpus
+  - model: ../../model/img_unet
+  - _self_  # make sure override
+
+task_id: 224x400
+log_root_prefix: ./work_dirs/x-scene-img_224x400
+runner:
+  num_train_epochs: 350
+  validation_show_box: true
+  validation_show_line: true
+  enable_xformers_memory_efficient_attention: true  # always need this.
+  bbox_add_ratio: 0.1

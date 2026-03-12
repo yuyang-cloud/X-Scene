@@ -1,0 +1,14 @@
+defaults:
+  - config_img
+  - _self_
+
+log_root_prefix: ./work_dirs/test_img
+
+runner:
+  validation_batch_size: 8  # 224x400:8  336x600:6
+
+resume_on_exists: false
+show_box: true
+show_lane: true
+
+fix_seed_for_every_generation: False
