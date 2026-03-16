@@ -73,7 +73,7 @@ We provide two ways to prepare the occupancy rendered maps (semantic and depth m
     ```
 
 - **Option 2: Download pre-processed data:**
-    Download our pre-processed [`OccRenderMap`](https://huggingface.co/yuyang-cloud/X-Scene/tree/main/occ_render_map). Merge the split files, extract the archive, and place the contents under `data/nuscenes/`.
+    Download our pre-processed [`OccRenderMap`](https://huggingface.co/datasets/yuyang-cloud/X-Scene/tree/main/occ_render_map). Merge the split files, extract the archive, and place the contents under `data/nuscenes/`.
 
 You will get these files:
 ```bash
