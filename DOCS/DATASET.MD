@@ -122,9 +122,13 @@ data/nuscenes/workshop
 
 2) Download the train/val pickle files and put them in `data/nuscenes/`
 
-    [nuscenes_infos_train_temporal_v3_scene.pkl](https://cloud.tsinghua.edu.cn/d/9e231ed16e4a4caca3bd/)
+    - **nuscenes_infos_train_temporal_v3_scene.pkl** 
+    
+        [Main Link](https://cloud.tsinghua.edu.cn/d/9e231ed16e4a4caca3bd/) | [Backup Link](https://huggingface.co/datasets/yuyang-cloud/X-Scene/blob/main/nuscenes_infos_train_temporal_v3_scene.pkl)
 
-    [nuscenes_infos_val_temporal_v3_scene.pkl](https://cloud.tsinghua.edu.cn/d/9e231ed16e4a4caca3bd/)
+    - **nuscenes_infos_val_temporal_v3_scene.pkl** 
+    
+        [Main Link](https://cloud.tsinghua.edu.cn/d/9e231ed16e4a4caca3bd/) | [Backup Link](https://huggingface.co/datasets/yuyang-cloud/X-Scene/blob/main/nuscenes_infos_val_temporal_v3_scene.pkl)
 
 3) You will get the folder structure:
     ```
