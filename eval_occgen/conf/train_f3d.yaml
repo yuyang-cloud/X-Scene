@@ -1,0 +1,10 @@
+defaults:
+  - dataset: occ3dn
+  - trainer: train
+  - model: f3d
+  - _self_
+
+name: 'F3D'
+
+trainer:
+  num_epochs: 100

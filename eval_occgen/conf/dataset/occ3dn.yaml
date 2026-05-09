@@ -1,0 +1,107 @@
+batch_size: 32
+num_workers: 16
+t_length: 1
+skip: 0
+train_aug: False
+shuffle: False
+
+dataset: 'occ3dn'
+data_path: 'data/nuscenes'
+info_path: 'data/nuscenes/nuscenes_mmdet3d_2'
+trainset_path: 'out/gt_img_train/occ3dn'
+validset_path: 'out/gt_img_val/occ3dn'
+path: 'out/gen_img/occ3dn'
+eval_gt_img_path: 'out/gt_img_val/occ3dn'
+eval_gen_img_path: 'out/gen_img/occ3dn'
+eval_gen_occ_path: 'out/gen_occ/occ3dn'
+scene_folder: ''
+imageset:
+  train: 'train_split'
+  valid: 'val_split'
+data_pattern: ''
+valid_imageset: 'val'
+
+num_classes: 18
+grid_size: [200, 200, 16]
+voxel_size: [0.4, 0.4, 0.4]
+pc_range: [-40, -40, -1, 40, 40, 5.4]
+
+color_map:
+  0:  [255, 255, 255]     # FREE
+  1:  [40, 40, 100]       # Barrier
+  2:  [156, 102, 102]     # Bicycle
+  3:  [237, 125, 49]      # Bus
+  4:  [255, 215, 0]       # Car
+  5:  [142, 250, 0]       # Construction vehicle
+  6:  [112, 48, 160]      # Motorcycle
+  7:  [255, 0, 0]         # Pedestrian
+  8:  [4, 50, 255]        # Traffic cone
+  9:  [148, 22, 81]       # Trailer
+  10: [0, 215, 255]       # Truck
+  11: [240, 240, 240]     # Drivable surface
+  12: [132, 151, 176]     # Other flat
+  13: [255, 52, 179]      # Sidewalk
+  14: [23, 135, 31]       # Terrain
+  15: [72, 118, 255]      # Manmade
+  16: [84, 255, 159]      # Vegetation
+  17: [55, 90, 80]        # GO
+
+learning_map:
+  0: 17
+  1: 1
+  2: 2
+  3: 3
+  4: 4
+  5: 5
+  6: 6
+  7: 7
+  8: 8
+  9: 9
+  10: 10
+  11: 11
+  12: 12
+  13: 13
+  14: 14
+  15: 15
+  16: 16
+  17: 0
+
+label_to_names:
+  0: FREE
+  1: Barrier
+  2: Bicycle
+  3: Bus
+  4: Car
+  5: Construction vehicle
+  6: Motorcycle
+  7: Pedestrian
+  8: Traffic cone
+  9: Trailer
+  10: Truck
+  11: Drivable surface
+  12: Other flat
+  13: Sidewalk
+  14: Terrain
+  15: Manmade
+  16: Vegetation
+  17: GO
+
+content:
+  0: 2082349        # GO
+  1: 3012970        # Barrier
+  2: 234046         # Bicycle
+  3: 5385402        # Bus
+  4: 34146494       # Car
+  5: 2044124        # Construction vehicle
+  6: 325765         # Motorcycle
+  7: 3330253        # Pedestrian
+  8: 543815         # Traffic cone
+  9: 5785079        # Trailer
+  10: 13521112      # Truck
+  11: 198278651     # Drivable surface
+  12: 4895895       # Other flat
+  13: 56540471      # Sidewalk
+  14: 66504617      # Terrain
+  15: 227803562     # Manmade
+  16: 252374615     # Vegetation
+  17: 17126390780   # FREE

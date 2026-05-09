@@ -1,0 +1,27 @@
+__pycache__/
+tb/
+*.egg-info/
+.vscode/
+exp*/
+logs
+sbatch
+ckpts
+wandb*
+visualization
+carlasc
+occ3dn
+occ3dw
+.idea
+out
+.DS_Store
+outputs
+confs
+dit_out
+*logs
+Latte
+trajectory
+**/build/
+tools
+# ckpts*
+.ckpt
+wandb_log/*

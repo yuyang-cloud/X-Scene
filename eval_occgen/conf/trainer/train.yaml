@@ -1,0 +1,19 @@
+# To produce deterministic result accross devices
+# seed: 0
+# deterministic: True
+# use_tf32: False
+seed: 0
+deterministic: False
+tf32: True
+amp: True
+
+num_epochs: 100
+auto_resume: False
+resume_ckpt: null
+
+log_interval: 100
+
+# Debug options
+debug: False
+debug_length: -1
+# local_rank: 0

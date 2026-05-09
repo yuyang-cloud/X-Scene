@@ -62,6 +62,10 @@ bash scripts/dist_test_occ.sh 1 debug test_config_occ ${RESUME_CKPT} occ +exp=oc
 bash scripts/dist_test_occ.sh 8 batch test_config_occ ${RESUME_CKPT} occ +exp=occ +fid=data_gen_occ
 ```
 
+### Evaluation with Eval_OccGen
+
+For occupancy generation evaluation with F2D/F3D metrics, please refer to [`eval_occgen/README.md`](../eval_occgen/README.md).
+
 ## ImgGen Train & Test
 ### Train 
 **Stage-1: Prepare Occ Rendered Map (Optional):**

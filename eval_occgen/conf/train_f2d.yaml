@@ -1,0 +1,10 @@
+defaults:
+  - dataset: occ3dn
+  - trainer: train
+  - model: f2d
+  - _self_
+
+name: 'F2D'
+
+trainer:
+  num_epochs: 100

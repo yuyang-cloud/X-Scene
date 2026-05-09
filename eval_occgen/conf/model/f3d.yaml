@@ -1,0 +1,27 @@
+# TRAINING
+grad_max_norm: 0
+grad_clip_step: 0
+
+optimizer_type: 'adam'
+learning_rate: 1e-4
+weight_decay: 0
+
+#scheduler_type: 'multisteplr'
+#lr_scheduler_steps: [50, 60, 70, 80, 90]
+#lr_scheduler_decay: 0.7
+
+#scheduler_type: 'cosineannealinglr'
+#t_max_ratio: 2
+#eta_min: 1e-6
+
+#log_class_miou: False
+#log_frame_miou: False
+#log_train_miou: False
+
+ce_use_weight: True
+loss_weights:
+  ce: 1.
+  lovasz: 1.
+#  kl: 0.005
+
+# MODEL

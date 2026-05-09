@@ -1,0 +1,95 @@
+batch_size: 32
+num_workers: 16
+t_length: 1
+skip: 0
+train_aug: False
+shuffle: False
+
+dataset: 'occ3dn'
+data_path: 'data/nuscenes'
+info_path: 'data/nuscenes/nuscenes_mmdet3d_2'
+trainset_path: 'out/gt_img_train/occ3dn'
+validset_path: 'out/gt_img_val/occ3dn'
+path: 'out/gen_img/occ3dn'
+eval_gt_img_path: 'out/gt_img_val/occ3dn'
+eval_gen_img_path: 'out/gen_img/occ3dn'
+eval_gen_occ_path: 'out/gen_occ/occ3dn'
+scene_folder: ''
+imageset:
+  train: 'train_split'
+  valid: 'val_split'
+data_pattern: ''
+valid_imageset: 'val'
+
+num_classes: 12
+grid_size: [200, 200, 16]
+voxel_size: [0.4, 0.4, 0.4]
+pc_range: [-40, -40, -1, 40, 40, 5.4]
+
+color_map:
+  0: [ 255, 255, 255 ]  # Free
+  1: [ 255, 118, 72 ]     # Building
+  2: [ 100, 40, 40 ]      # Barrier
+  3: [ 55, 90, 80 ]       # Other
+  4: [ 0, 0, 255 ]        # Pedestrian
+  5: [ 153, 153, 153 ]    # Pole
+  6: [ 255, 255, 255 ]    # Road
+  7: [ 31, 135, 23 ]      # Ground
+  8: [ 179, 52, 255 ]     # Sidewalk
+  9: [ 159, 255, 84 ]     # Vegetation
+  10: [ 0, 215, 255 ]     # Vehicle
+  11: [ 102, 102, 156 ]   # Bicycle
+
+learning_map:
+  0: 3      # GO -> Other
+  1: 2      # Barrier -> Barrier
+  2: 11     # Bicycle -> Bicycle
+  3: 10     # Bus -> Vehicle
+  4: 10     # Car -> Vehicle
+  5: 10     # Construction vehicle -> Vehicle
+  6: 11     # Motorcycle -> Bicycle
+  7: 4      # Pedestrian -> Pedestrian
+  8: 5      # Traffic cone -> Pole
+  9: 10     # Trailer -> Vehicle
+  10: 10    # Truck -> Vehicle
+  11: 6     # Drivable surface -> Road
+  12: 7     # Other flat -> Ground
+  13: 8     # Sidewalk -> Sidewalk
+  14: 7     # Terrain -> Ground
+  15: 1     # Manmade -> Building
+  16: 9     # Vegetation -> Vegetation
+  17: 0     # FREE -> FREE
+
+label_to_names:
+  0: Free         # Free
+  1: Building     # Manmade
+  2: Barrier      # Barrier
+  3: Other        # GO
+  4: Pedestrian   # Pedestrian
+  5: Pole         # Traffic cone
+  6: Road         # Drivable surface
+  7: Ground       # Other flat, Terrain
+  8: Sidewalk     # Sidewalk
+  9: Vegetation   # Vegetation
+  10: Vehicle     # Bus, Car, Construction vehicle, Trailer, Truck
+  11: Bicycle     # Bicycle, Motorcycle
+
+content:
+  0: 2082349        # GO
+  1: 3012970        # Barrier
+  2: 234046         # Bicycle
+  3: 5385402        # Bus
+  4: 34146494       # Car
+  5: 2044124        # Construction vehicle
+  6: 325765         # Motorcycle
+  7: 3330253        # Pedestrian
+  8: 543815         # Traffic cone
+  9: 5785079        # Trailer
+  10: 13521112      # Truck
+  11: 198278651     # Drivable surface
+  12: 4895895       # Other flat
+  13: 56540471      # Sidewalk
+  14: 66504617      # Terrain
+  15: 227803562     # Manmade
+  16: 252374615     # Vegetation
+  17: 17126390780   # FREE
